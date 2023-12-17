@@ -1,6 +1,6 @@
 import colors
 import pygame
-from constraints import *
+from constants import *
 
 
 def reset_player():
@@ -9,7 +9,7 @@ def reset_player():
     vy = 0
 
 
-# Player
+# Sprite Player
 # player_pos = [WIDTH / 2, HEIGHT / 2 - 50]
 # player_pos = [0, 460]
 player_size = (30, 40)
