@@ -60,50 +60,64 @@ def float_blocks():
             "offset_x": 400,
             "terrain_index": 4,
             "height_above_terrain": 100,
+            "color": SIENNA,
             "width": 70,
-            "height": 20
+            "height": 20,
+            "type": "floating_block"
          },
         {
             "offset_x": 700,
             "terrain_index": 7,
             "height_above_terrain": 150,
+            "color": SIENNA,
             "width": 50,
-            "height": 20
+            "height": 20,
+            "type": "floating_block"
         },
         {
             "offset_x": 1200,
             "terrain_index": 10,
             "height_above_terrain": 250,
+            "color": SIENNA,
             "width": 70,
-            "height": 20
+            "height": 20,
+            "type": "floating_block"
         },
         {
             "offset_x": 1200,
             "terrain_index": 12,
             "height_above_terrain": 350,
+            "color": SIENNA,
             "width": 50,
-            "height": 20
+            "height": 20,
+            "type": "floating_block"
         },
         {
             "offset_x": 1350,
             "terrain_index": 13,
             "height_above_terrain": 550,
+            "color": SIENNA,
             "width": 1500,
-            "height": 20
+            "height": 20,
+            "type": "floating_block"
         },
         {
             "offset_x": 3300,
             "terrain_index": 33,
             "height_above_terrain": 250,
+            "color": SIENNA,
             "width": 100,
-            "height": 20
+            "height": 20,
+            "type": "floating_block"
         },
         {
             "offset_x": 4000,
             "terrain_index": 40,
             "height_above_terrain": 250,
+            "color": SIENNA,
             "width": 100,
-            "height": 20
+            "height": 20,
+            "type": "floating_block"
         }
         # ... more blocks ...
     ]
@@ -118,71 +132,91 @@ def coin_bins():
             "offset_x": 400,
             "terrain_index": 40,
             "height_above_terrain": 250,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 500,
             "terrain_index": 5,
             "height_above_terrain": 350,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 800,
             "terrain_index": 8,
             "height_above_terrain": 450,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 1300,
             "terrain_index": 13,
             "height_above_terrain": 650,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 1370,
             "terrain_index": 13,
             "height_above_terrain": 750,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 1400,
             "terrain_index": 14,
             "height_above_terrain": 850,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 1550,
             "terrain_index": 15,
             "height_above_terrain": 850,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 1800,
             "terrain_index": 18,
             "height_above_terrain": 850,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 1950,
             "terrain_index": 19,
             "height_above_terrain": 850,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         {
             "offset_x": 2000,
             "terrain_index": 20,
             "height_above_terrain": 650,
+            "color": GOLD,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "type": "coin_box"
         },
         # Add more coin boxes as needed
     ]
@@ -191,71 +225,89 @@ def coin_bins():
 
 def coin_gold():
     gold_coin = [
-        # Define each coin box with appropriate properties
+        # Define each gold coin with appropriate properties
         {
             "offset_x": 1100,
             "terrain_index": 11,
             "height_above_terrain": 450,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 1150,
             "terrain_index": 11,
             "height_above_terrain": 470,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 1180,
             "terrain_index": 11,
             "height_above_terrain": 500,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 1200,
             "terrain_index": 12,
             "height_above_terrain": 520,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 2100,
             "terrain_index": 21,
             "height_above_terrain": 550,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 2130,
             "terrain_index": 22,
             "height_above_terrain": 450,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 2150,
             "terrain_index": 22,
             "height_above_terrain": 410,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 2180,
             "terrain_index": 22,
             "height_above_terrain": 390,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
         {
             "offset_x": 2200,
             "terrain_index": 22,
             "height_above_terrain": 350,
+            "color": GOLD,
             "width": 10,
-            "height": 5
+            "height": 5,
+            "type": "gold_coin"
         },
-        # Add more coin boxes as needed
+        # Add more gold coin as needed
     ]
     return gold_coin
 
@@ -266,92 +318,118 @@ def cactus_blocks():
             "offset_x": 700,
             "terrain_index": 7,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,  # Width of the cactus
-            "height": 70  # Height of the cactus
+            "height": 70,  # Height of the cactus
+            "type": "cactus"
         },
         {
             "offset_x": 1200,
             "terrain_index": 12,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 2000,
             "terrain_index": 20,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 3100,
             "terrain_index": 31,
             "height_above_terrain": 150,
+            "color": GREEN,
             "width": 30,
-            "height": 150
+            "height": 150,
+            "type": "cactus"
         },
         {
             "offset_x": 3300,
             "terrain_index": 33,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 3500,
             "terrain_index": 35,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 4000,
             "terrain_index": 40,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,  # Width of the cactus
-            "height": 70  # Height of the cactus
+            "height": 70, # Height of the cactus
+            "type": "cactus"
         },
         {
             "offset_x": 4500,
             "terrain_index": 45,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 5500,
             "terrain_index": 55,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 6000,
             "terrain_index": 60,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 7000,
             "terrain_index": 70,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 8000,
             "terrain_index": 80,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
         {
             "offset_x": 9000,
             "terrain_index": 90,
             "height_above_terrain": 50,
+            "color": GREEN,
             "width": 30,
-            "height": 70
+            "height": 70,
+            "type": "cactus"
         },
 
         # ... add more cactus as needed ...
