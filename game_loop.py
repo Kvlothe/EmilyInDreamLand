@@ -1,5 +1,6 @@
 from draw_objects import *
 from movement import *
+import json
 
 
 def initialize_game():
@@ -7,15 +8,52 @@ def initialize_game():
     pygame.init()
     pygame.font.init()
 
-    # Get the size of the current screen
-    infoObject = pygame.display.Info()
-    WIDTH, HEIGHT = infoObject.current_w, infoObject.current_h
+    # Define a specific window size
+    WINDOW_WIDTH, WINDOW_HEIGHT = 1200, 800  # You can adjust these values as needed
 
-    # Set up the screen in full-screen mode
-    screen = pygame.display.set_mode((WIDTH, HEIGHT), FULLSCREEN)
+    # Set up the screen with the specific size
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Emily in Dreamland")
 
     return screen
+
+
+def get_player_initials(screen, font):
+    initials = ""
+    while len(initials) < 3:
+        screen.fill((0, 0, 0))  # Clear screen with black or another color
+        text_surface = font.render("Enter initials: " + initials, True, (255, 255, 255))  # White text
+        screen.blit(text_surface, (100, 100))  # Position where the text should be displayed
+        pygame.display.flip()  # Update the display
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN and len(initials) == 3:
+                    return initials
+                elif event.key == pygame.K_BACKSPACE:
+                    initials = initials[:-1]
+                elif event.unicode.isalpha():
+                    initials += event.unicode.upper()
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+    return initials
+
+
+def save_score(score, initials):
+    try:
+        with open('scores.json', 'r') as file:
+            scores = json.load(file)
+    except FileNotFoundError:
+        scores = []
+
+    scores.append({"initials": initials, "score": score})
+
+    # Optionally, sort scores here if you want to keep them in order
+    scores.sort(key=lambda x: x['score'], reverse=True)
+
+    with open('scores.json', 'w') as file:
+        json.dump(scores, file)
 
 
 class Game:
@@ -50,12 +88,6 @@ class Game:
         self.score = 0  # Reset score
         self.player_rect = pygame.Rect(*self.player_pos, *self.player_size)  # Create a Rect for the player
 
-    def handle_jump(self, keys):
-        if keys[K_UP] and self.on_ground:
-            self.vy = -JUMP_STRENGTH
-            self.on_ground = False
-            print("Jump initiated, vy:", self.vy)
-
     def display_scoreboard(self, screen, score, elapsed_time):
         # Clear the screen or draw a background for the scoreboard
         screen.fill((0, 0, 0))  # Black background
@@ -66,8 +98,8 @@ class Game:
         score_text = font.render(f"Final Score: {score}", True, (255, 255, 255))
         screen.blit(score_text, (100, 100))  # Adjust position as needed
 
-        prompt_text = font.render("Play Again? Y/N", True, (255, 255, 255))
-        screen.blit(prompt_text, (100, 200))  # Adjust position as needed
+        # prompt_text = font.render("Play Again? Y/N", True, (255, 255, 255))
+        # screen.blit(prompt_text, (100, 200))  # Adjust position as needed
 
         # Update the display
         pygame.display.flip()
@@ -92,23 +124,17 @@ class Game:
                             print("Debug Information:")
                             print(f"Global Position: {self.global_position}")
                             print(f"Player Position: {self.player_pos[0]}, {self.player_pos[1]}")
+                            print(f"On Ground: {self.on_ground}")
                             for i in range(5):  # Print first 5 terrain segments as an example
                                 print(f"Terrain Segment {i}: {self.terrain[i]['rect']}")
                                 print(f"End Flag Position: {self.end_flag}")
 
                             # Print information for the first few terrain segments
-                            for i, segment in enumerate(self.terrain[:5]):  # Adjust the range as needed
-                                print(f"Terrain Segment {i}: {segment['rect']}")
+                            # for i, segment in enumerate(self.terrain[:5]):  # Adjust the range as needed
+                            #     print(f"Terrain Segment {i}: {segment['rect']}")
 
-            keys = pygame.key.get_pressed()
-            # self.handle_jump(keys)
-
-            objects = self.floating_blocks + self.cactus + self.coin_box + self.gold_coin
-
-            draw_floating_blocks(self.screen, self.floating_blocks, self.terrain, self.global_position)
-            draw_cacti(self.screen, self.cactus, self.terrain, self.global_position)
-            draw_gold_coin(self.screen, self.gold_coin, self.terrain, self.global_position)
-            draw_coin_boxes(self.screen, self.coin_box, self.terrain, self.global_position)
+            # For collision checking - Module does not work right
+            # objects = self.floating_blocks + self.cactus + self.coin_box + self.gold_coin
 
             # Movement
             # Calling the handle_movement function and updating class attributes accordingly
@@ -130,7 +156,7 @@ class Game:
                 if player_pos[0] < segment.right and player_pos[0] + player_size[0] > segment.left:
                     if player_pos[1] + player_size[1] > segment.top and player_pos[1] < segment.bottom:
                         player_pos[1] = segment.top - player_size[1]
-                        self.vy = 0
+                        self.vy += GRAVITY
                         self.on_ground = True
                         break
 
@@ -159,7 +185,7 @@ class Game:
 
                 if player_rect.colliderect(block_rect):
                     player_pos[1] = block_rect.top - player_size[1]
-                    vy = 0
+                    vy += GRAVITY
                     self.on_ground = True
                     break
 
@@ -172,7 +198,7 @@ class Game:
                 coin_rect = pygame.Rect(coin_x, coin_y, coin_info["width"], coin_info["height"])
 
                 if player_rect.colliderect(coin_rect):
-                    self.score += 10  # Increase score for each collected gold coin
+                    self.score += 100  # Increase score for each collected gold coin
                     self.coin_box.remove(coin_info)  # Remove the collected coin
                     break  # Exit the loop to avoid multiple coin removals in a single frame
 
@@ -187,7 +213,6 @@ class Game:
                 if player_rect.colliderect(coin_rect):
                     self.score += 10  # Increase score for each collected gold coin
                     self.gold_coin.remove(gold_coin_info)  # Remove the collected coin
-                    break  # Exit the loop to avoid multiple coin removals in a single frame
 
             # Check collision with cactus blocks
             for cactus_info in self.cactus:
@@ -221,6 +246,10 @@ class Game:
 
             # Draw the end flag
             pygame.draw.rect(self.screen, BLACK, self.end_flag)
+            draw_floating_blocks(self.screen, self.floating_blocks, self.terrain, self.global_position)
+            draw_cacti(self.screen, self.cactus, self.terrain, self.global_position)
+            draw_gold_coin(self.screen, self.gold_coin, self.terrain, self.global_position)
+            draw_coin_boxes(self.screen, self.coin_box, self.terrain, self.global_position)
 
             # Display Score
             font = pygame.font.Font(None, 36)  # Create a font object; None uses the default font, 36 is the size
@@ -230,30 +259,9 @@ class Game:
             pygame.draw.rect(self.screen, self.player_color, (player_pos[0], player_pos[1], *player_size))
             pygame.display.flip()
 
-            # play_again = False
-            # waiting_for_input = True
-            #
-            # while waiting_for_input:
-            #     for event in pygame.event.get():
-            #         if event.type == pygame.KEYDOWN:
-            #             if event.key == pygame.K_y:
-            #                 play_again = True
-            #                 waiting_for_input = False
-            #             elif event.key == pygame.K_n:
-            #                 play_again = False
-            #                 waiting_for_input = False
-            #         elif event.type == pygame.QUIT:
-            #             waiting_for_input = False
-            #             play_again = False
-            #
-            # # After the loop
-            # if play_again:
-            #     reset_game()
-            #     continue  # Continue the game loop
-            # else:
-            #     # Exit the game loop to quit the game
-            #     running = False
-
             self.clock.tick(60)
+
+        initials = get_player_initials(self.screen, font)
+        save_score(final_score, initials)
 
         pygame.quit()

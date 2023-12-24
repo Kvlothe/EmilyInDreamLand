@@ -5,12 +5,6 @@ from constants import *
 
 def handle_movement(player_pos, player_rect, global_position, terrain, vy, end_flag, floating_blocks, cactus, coin_box,
                     gold_coin, on_ground, player_size, events):
-    for event in events:
-        if event.type == pygame.KEYDOWN:
-            if event.key == K_UP and on_ground:
-                vy = -JUMP_STRENGTH
-                print("Jump initiated, vy:", vy)
-    # existing code...
     keys = pygame.key.get_pressed()
 
     if keys[K_RIGHT]:
@@ -25,7 +19,7 @@ def handle_movement(player_pos, player_rect, global_position, terrain, vy, end_f
                 for segment in terrain:
                     segment.x -= SCROLL_SPEED
 
-                # Scroll floating blocks, cacti, and coin bins
+                # Scroll floating blocks, cacti, coins, and coin bins
                 for block_info in floating_blocks:
                     block_info["rect"].x -= SCROLL_SPEED
                 for cactus_info in cactus:
@@ -86,30 +80,10 @@ def handle_movement(player_pos, player_rect, global_position, terrain, vy, end_f
 
     # Check if the player is on the ground and the jump key is pressed
     if keys[K_UP] and on_ground:
-        vy = -JUMP_STRENGTH  # Set to negative to jump upwards
-        print("Jump initiated, vy:", vy)
+        vy = -JUMP_STRENGTH
 
     vy += GRAVITY
     player_pos[1] += vy
     player_rect.topleft = player_pos
-
-    # # Update on_ground based on collision with terrain
-    # on_ground = False
-    # for segment_dict in terrain:
-    #     segment = segment_dict['rect']
-    #     if player_rect.colliderect(segment):
-    #         on_ground = True
-    #         vy = 0  # Reset vertical speed when on the ground
-    #         break
-
-    # Apply gravity only if not on ground
-    # if not on_ground:
-    #     vy += GRAVITY
-    # player_pos[1] += vy
-    # player_rect.topleft = player_pos
-
-    # Debugging print statements
-    # print(f"After collision check - on_ground: {on_ground}, vy: {vy}")
-    # print(f"vy: {vy}, on_ground: {on_ground}")
 
     return player_pos, player_rect, global_position, vy, on_ground
